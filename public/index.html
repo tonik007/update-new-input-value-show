@@ -12,29 +12,38 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #c4c4c5 0%, #f1f1f3 100%);
+      background: linear-gradient(135deg, #a8dadc 0%, #457b9d 100%); /* Softer, modern gradient */
       margin: 0;
       padding: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column; /* Allow content to flow vertically */
       justify-content: center;
       align-items: center;
       color: #333;
+      padding: 20px; /* Add some padding around the edges */
     }
 
     .container {
       background: #fff;
       padding: 30px 40px;
       border-radius: 12px;
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* More prominent shadow */
       width: 100%;
-      max-width: 400px;
+      max-width: 450px; /* Slightly wider form */
+      transition: transform 0.3s ease; /* Smooth transition on hover */
+    }
+
+    .container:hover {
+      transform: translateY(-5px); /* Slight lift on hover */
     }
 
     h2 {
       text-align: center;
-      color: #1e40af;
-      margin-bottom: 24px;
+      color: #1d3557; /* Darker blue for headings */
+      margin-bottom: 30px; /* More space below heading */
+      font-size: 2em; /* Larger heading */
+      font-weight: 700;
     }
 
     form {
@@ -43,83 +52,102 @@
     }
 
     label {
-      margin-bottom: 6px;
+      margin-bottom: 8px; /* More space below labels */
       font-weight: 600;
-      color: #1e40af;
+      color: #1d3557;
+      font-size: 1.1em;
     }
 
     input[type="text"],
     input[type="email"] {
-      padding: 10px 15px;
-      margin-bottom: 20px;
-      border: 2px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
+      padding: 12px 18px; /* More padding inside inputs */
+      margin-bottom: 22px; /* More space below inputs */
+      border: 2px solid #ced4da; /* Lighter border */
+      border-radius: 10px; /* Slightly more rounded corners */
+      font-size: 17px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     input[type="text"]:focus,
     input[type="email"]:focus {
-      border-color: #2563eb;
+      border-color: #457b9d; /* Blue focus color */
+      box-shadow: 0 0 0 4px rgba(69, 123, 157, 0.2); /* Soft blue glow on focus */
       outline: none;
     }
 
     button {
-      background: #2563eb;
+      background: #457b9d; /* Main button color */
       color: white;
-      padding: 12px 0;
+      padding: 14px 0; /* More padding for a larger button */
       border: none;
       border-radius: 10px;
-      font-size: 18px;
+      font-size: 19px;
       cursor: pointer;
       font-weight: 700;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      letter-spacing: 0.5px; /* Slight letter spacing */
     }
 
     button:hover {
-      background: #65ca11;
+      background: #e63946; /* Vibrant red on hover */
+      transform: translateY(-2px); /* Slight lift on hover */
     }
 
-    .link-container {
+    button:active {
+      transform: translateY(0); /* Press effect */
+    }
+
+    .message {
       text-align: center;
-      margin-top: 18px;
-    }
-
-    .link-container a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .link-container a:hover {
-      color: #1e40af;
-      text-decoration: underline;
+      margin-top: 20px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: green; /* Default success message color */
     }
 
     /* Responsive */
     @media (max-width: 480px) {
       .container {
         padding: 20px;
-        max-width: 90%;
+        max-width: 95%; /* Adjust for smaller screens */
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        padding: 10px 15px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 12px 0;
+        font-size: 17px;
       }
     }
   </style>
 </head>
 <body>
-  <h2>ইউজার তথ্য দিন</h2>
+  <div class="container">
+    <h2>ইউজার তথ্য দিন</h2>
 
-  <form id="user-form">
-    <input type="text" name="name" placeholder="নাম" required><br>
-    <input type="email" name="email" placeholder="ইমেইল" required><br>
-    <input type="text" name="phone" placeholder="মোবাইল" required><br>
-    <button type="submit">জমা দিন</button>
-  </form>
+    <form id="user-form">
+      <label for="name">নাম:</label>
+      <input type="text" id="name" name="name" placeholder="আপনার নাম লিখুন" required>
 
-  <p id="message" style="color: green; font-weight: bold;"></p>
+      <label for="email">ইমেইল:</label>
+      <input type="email" id="email" name="email" placeholder="আপনার ইমেইল লিখুন" required>
 
-  <br>
-  <!-- <a href="/data.html">ইউজার তালিকা দেখুন</a> -->
+      <label for="phone">মোবাইল:</label>
+      <input type="text" id="phone" name="phone" placeholder="আপনার মোবাইল নম্বর লিখুন" required>
+
+      <button type="submit">জমা দিন</button>
+    </form>
+
+    <p id="message" class="message"></p>
+  </div>
 
   <script>
     const form = document.getElementById('user-form');
@@ -144,10 +172,17 @@
       .then(result => {
         if (result.success) {
           message.textContent = result.message;
+          message.style.color = 'green'; // Ensure success message is green
           form.reset(); // ফর্ম খালি করে দাও
         } else {
-          message.textContent = "জমা ব্যর্থ হয়েছে।";
+          message.textContent = "জমা ব্যর্থ হয়েছে।";
+          message.style.color = 'red'; // Set error message to red
         }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          message.textContent = "সার্ভারের সাথে যোগাযোগ করা যায়নি।";
+          message.style.color = 'red';
       });
     });
   </script>
