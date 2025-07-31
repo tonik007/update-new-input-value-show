@@ -12,7 +12,6 @@ app.use(express.json());
 // Form submission handler
 app.post('/submit', (req, res) => {
   const { name, email, phone } = req.body;
-
   const newUser = { name, email, phone };
   let users = [];
 
@@ -26,8 +25,9 @@ app.post('/submit', (req, res) => {
   users.push(newUser);
   fs.writeFileSync('data.json', JSON.stringify(users, null, 2));
 
-  res.redirect('/data.html');
+  res.json({ success: true, message: "সফলভাবে জমা হয়েছে!" });
 });
+
 
 // API route for data.html to fetch users
 app.get('/get-data', (req, res) => {
