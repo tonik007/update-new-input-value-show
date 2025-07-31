@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>ইউজার তালিকা</title>
+  <style>
+    table { width: 80%; margin: auto; border-collapse: collapse; }
+    th, td { border: 1px solid #555; padding: 10px; text-align: center; }
+    th { background-color: green; color: white; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">📋 ইউজার তালিকা</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>নাম</th>
+        <th>ইমেইল</th>
+        <th>মোবাইল</th>
+      </tr>
+    </thead>
+    <tbody id="user-table-body">
+      <!-- Data will be inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('/get-data')
+      .then(res => res.json())
+      .then(users => {
+        const table = document.getElementById('user-table-body');
+        users.forEach(user => {
+          const row = `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.phone}</td></tr>`;
+          table.innerHTML += row;
+        });
+      });
+  </script>
+</body>
+</html>
